@@ -1,15 +1,19 @@
 import './App.css';
-import Inventory from './component/Inventory/Inventory';
+import { Provider } from 'react-redux';
+import configureAppStore from './store/configureAppStore';
+import Dashboard from './component/Dashboard/Dashboard';
+import CartProvider from './contexts/CartProvider';
+
+const store = configureAppStore();
 
 function App() {
   return (
     <div className='App'>
-      <div className="w-3/5">
-        <Inventory />
-      </div>
-      <div className="w-2/5">
-        Something
-      </div>
+      <Provider store={store}>
+        <CartProvider>
+          <Dashboard />
+        </CartProvider>
+      </Provider>
     </div>
   );
 }
