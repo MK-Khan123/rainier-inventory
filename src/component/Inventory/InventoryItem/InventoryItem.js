@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import useReduxState from '../../../hooks/useReduxState';
 import medic from '../../../images/medicine.png';
 
@@ -10,9 +11,14 @@ const InventoryItem = ({ inventoryItem }) => {
 
     useEffect(() => {
         const url = `https://fec-inventory-api.herokuapp.com/inventory-info?product_id=${id}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setItemPrice(data[0].unit_price));
+
+        const fetchItemPrice = async () => {
+            const res = await axios.get(url);
+            setItemPrice(res.data[0].unit_price);
+        }
+        
+        fetchItemPrice();
+
     }, []);
 
     return (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cart from '../Cart/Cart';
 import Inventory from '../Inventory/Inventory';
+import axios from 'axios';
 
 const Dashboard = () => {
 
@@ -8,14 +9,18 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        
         setIsLoading(true);
         const url = `https://fec-inventory-api.herokuapp.com/product-info`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                setInventory(data);
-                setIsLoading(false);
-            });
+
+        const fetchInventory = async () => {
+            const res = await axios.get(url);
+            setInventory(res.data);
+            setIsLoading(false);
+        }
+
+        fetchInventory();
+        
     }, []);
 
     return (
