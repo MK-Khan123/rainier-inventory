@@ -4,9 +4,10 @@ import Inventory from '../Inventory/Inventory';
 import axios from 'axios';
 
 const Dashboard = () => {
-
-    const [inventory, setInventory] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    
+    const [inventory, setInventory] = useState([]); //This state carries all the product related data
+    
+    const [isLoading, setIsLoading] = useState(false); //This state is used to display Preloader while fetching the data from database
 
     useEffect(() => {
 
@@ -44,9 +45,11 @@ const Dashboard = () => {
             </select>
 
             <div className="flex">
+                {/* To display the products on Dashboard */}
                 <div className='w-3/5'>
                     <Inventory isLoading={isLoading} inventory={inventory} setInventory={setInventory} />
                 </div>
+                {/* To display the products added on cart */}
                 <div className='w-2/5'>
                     <Cart inventory={inventory} setInventory={setInventory} />
                 </div>

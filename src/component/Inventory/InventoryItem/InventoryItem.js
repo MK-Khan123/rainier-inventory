@@ -6,11 +6,11 @@ import medic from '../../../images/medicine.png';
 const InventoryItem = ({ inventoryItem, inventory, setInventory }) => {
 
     const { handleAddToCart } = useReduxState();
-    const { name, description, category, id } = inventoryItem;
-    const [itemPrice, setItemPrice] = useState(0);
+    const { name, description, category, id } = inventoryItem; //Information of a particular product
+    const [itemPrice, setItemPrice] = useState(0); //To store price per unit
 
     useEffect(() => {
-        const url = `https://fec-inventory-api.herokuapp.com/inventory-info?product_id=${id}`;
+        const url = `https://fec-inventory-api.herokuapp.com/inventory-info?product_id=${id}`; //This API is used to fetch unit price of a particular product
 
         const fetchItemPrice = async () => {
             const res = await axios.get(url);
@@ -40,6 +40,9 @@ const InventoryItem = ({ inventoryItem, inventory, setInventory }) => {
             <div className='flex flex-col justify-center'>
                 <button
                     onClick={() => {
+                        //Two things happening here,
+                        //1. The product is added on the cart
+                        //2. Once the product is added to the cart, the inventory state is being updated.
                         handleAddToCart(inventoryItem, itemPrice);
                         const remainingInventory = inventory.filter(inventoryItem => inventoryItem.id !== id);
                         setInventory(remainingInventory);

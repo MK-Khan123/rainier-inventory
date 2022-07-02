@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 const Modal = ({ showModal, setShowModal, onClose, cartItems, cartTotal, handleEmptyCart }) => {
 
-    //A state that is used to show/hide confirmation of the supply request
-    const [confirmMessage, setConfirmMessage] = useState(false);
+    const [confirmMessage, setConfirmMessage] = useState(false); //A state that is used to show/hide confirmation of the supply request
+
     const handleCloseMessage = (e) => {
         if (e.target.id === 'order-confirmed') {
             setConfirmMessage(false);
@@ -22,6 +22,9 @@ const Modal = ({ showModal, setShowModal, onClose, cartItems, cartTotal, handleE
             {
                 showModal ? (
                     cartItems.length ? (
+
+                        // If there are cart items, then this block of code will appear showing the relevant info of the products added on cart
+
                         <div onClick={onClose} id='confirmation-modal' className='fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center modal'>
                             <div className="bg-white px-24 py-6 rounded-lg">
                                 <div className='mb-8'>
@@ -67,6 +70,8 @@ const Modal = ({ showModal, setShowModal, onClose, cartItems, cartTotal, handleE
                             </div>
                         </div>
                     ) : (
+                        // If there are no cart items then this block of code will appear asking the user to add items first
+
                         <div onClick={onClose} id='modal' className='fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center'>
                             <div className="bg-white px-24 py-6 rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mb-6 mx-auto py-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -78,6 +83,7 @@ const Modal = ({ showModal, setShowModal, onClose, cartItems, cartTotal, handleE
                     )
                 ) : null
             }
+            {/* This block of code appears when the user confirms the supply request */}
             {
                 confirmMessage && (
                     <div onClick={handleCloseMessage} id='order-confirmed' className='fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center'>
