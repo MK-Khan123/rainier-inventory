@@ -7,6 +7,15 @@ const Cart = () => {
 
     const [showModal, setShowModal] = useState(false);
     const { cartItems, handleAddQuantity, handleReduceQuantity, handleRemoveFromCart, cartTotal } = useReduxState();
+    const handleOnClose = (e) => {
+        if (
+            (e.target.id === 'confirmation-modal') ||
+            (e.target.id === 'modal') ||
+            (e.target.id === 'cancel-button')
+        ) {
+            setShowModal(false);
+        }
+    };
 
     return (
         <div className='p-2 m-2 bg-slate-100'>
@@ -46,7 +55,12 @@ const Cart = () => {
             <hr />
             <p className='text-end mt-4 mr-4 font-bold'>Total: ${cartTotal}</p>
             <div className="text-center">
-                <Modal showModal={showModal} setShowModal={setShowModal} />
+                <Modal
+                    cartItems={cartItems}
+                    cartTotal={cartTotal}
+                    onClose={handleOnClose}
+                    showModal={showModal}
+                    setShowModal={setShowModal} />
             </div>
         </div>
     );
