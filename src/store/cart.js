@@ -24,7 +24,7 @@ const cartSlice = createSlice({
             }
         },
 
-        // emptyCart: (cart, action) => cart = []
+        emptyCart: (cart, action) => cart = []
     }
 });
 

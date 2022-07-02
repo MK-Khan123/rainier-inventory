@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 const Cart = () => {
 
     const [showModal, setShowModal] = useState(false);
-    const { cartItems, handleAddQuantity, handleReduceQuantity, handleRemoveFromCart, cartTotal } = useReduxState();
+    const { cartItems, handleAddQuantity, handleReduceQuantity, handleRemoveFromCart, cartTotal, handleEmptyCart } = useReduxState();
     const handleOnClose = (e) => {
         if (
             (e.target.id === 'confirmation-modal') ||
@@ -59,6 +59,7 @@ const Cart = () => {
                     cartItems={cartItems}
                     cartTotal={cartTotal}
                     onClose={handleOnClose}
+                    handleEmptyCart={handleEmptyCart}
                     showModal={showModal}
                     setShowModal={setShowModal} />
             </div>
