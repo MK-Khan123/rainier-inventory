@@ -3,7 +3,7 @@ import { MinusCircleIcon, PlusCircleIcon, XCircleIcon } from '@heroicons/react/s
 import useReduxState from '../../hooks/useReduxState';
 import Modal from '../Modal/Modal';
 
-const Cart = () => {
+const Cart = ({ inventory, setInventory }) => {
 
     const [showModal, setShowModal] = useState(false);
     const { cartItems, handleAddQuantity, handleReduceQuantity, handleRemoveFromCart, cartTotal, handleEmptyCart } = useReduxState();
@@ -45,7 +45,17 @@ const Cart = () => {
                                         <PlusCircleIcon onClick={() => handleAddQuantity(id)} className="ml-1 h-5 w-5 cursor-pointer text-green-500" />
                                     </td>
                                     <td>$ {price}</td>
-                                    <td><XCircleIcon onClick={() => handleRemoveFromCart(id)} className="mx-auto h-5 w-5 cursor-pointer text-red-500" /></td>
+                                    <td>
+                                        <XCircleIcon
+                                            onClick={() => {
+                                                const removedProduct = cartItems.find(inventoryItem => inventoryItem.id === id);
+                                                const updatedInventory = [removedProduct, ...inventory];
+                                                setInventory(updatedInventory);
+                                                handleRemoveFromCart(id);
+                                            }}
+                                            className="mx-auto h-5 w-5 cursor-pointer text-red-500"
+                                        />
+                                    </td>
                                 </tr>
                             );
                         })

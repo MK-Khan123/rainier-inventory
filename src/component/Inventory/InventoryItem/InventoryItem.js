@@ -3,7 +3,7 @@ import axios from 'axios';
 import useReduxState from '../../../hooks/useReduxState';
 import medic from '../../../images/medicine.png';
 
-const InventoryItem = ({ inventoryItem }) => {
+const InventoryItem = ({ inventoryItem, inventory, setInventory }) => {
 
     const { handleAddToCart } = useReduxState();
     const { name, description, category, id } = inventoryItem;
@@ -16,7 +16,7 @@ const InventoryItem = ({ inventoryItem }) => {
             const res = await axios.get(url);
             setItemPrice(res.data[0].unit_price);
         }
-        
+
         fetchItemPrice();
 
     }, []);
@@ -38,7 +38,14 @@ const InventoryItem = ({ inventoryItem }) => {
                 </p>
             </div>
             <div className='flex flex-col justify-center'>
-                <button onClick={() => handleAddToCart(inventoryItem, itemPrice)} className="w-3/4 flex items-center justify-center my-2 mx-auto py-1 border border-transparent text-xs text-violet-700 font-medium rounded-md bg-violet-200 hover:bg-violet-300 hover:text-white">
+                <button
+                    onClick={() => {
+                        handleAddToCart(inventoryItem, itemPrice);
+                        const remainingInventory = inventory.filter(inventoryItem => inventoryItem.id !== id);
+                        setInventory(remainingInventory);
+                    }}
+                    className="w-3/4 flex items-center justify-center my-2 mx-auto py-1 border border-transparent text-xs text-violet-700 font-medium rounded-md bg-violet-200 hover:bg-violet-300 hover:text-white"
+                >
                     Add to list
                 </button>
                 <button className="w-3/4 flex items-center justify-center mt-2 mx-auto py-1 border border-transparent text-xs text-violet-700 font-medium rounded-md bg-violet-200 hover:bg-violet-300 hover:text-white">

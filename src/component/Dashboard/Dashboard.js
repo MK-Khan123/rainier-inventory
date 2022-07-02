@@ -9,7 +9,7 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        
+
         setIsLoading(true);
         const url = `https://fec-inventory-api.herokuapp.com/product-info`;
 
@@ -20,7 +20,7 @@ const Dashboard = () => {
         }
 
         fetchInventory();
-        
+
     }, []);
 
     return (
@@ -45,10 +45,10 @@ const Dashboard = () => {
 
             <div className="flex">
                 <div className='w-3/5'>
-                    <Inventory isLoading={isLoading} inventory={inventory} />
+                    <Inventory isLoading={isLoading} inventory={inventory} setInventory={setInventory} />
                 </div>
                 <div className='w-2/5'>
-                    <Cart />
+                    <Cart inventory={inventory} setInventory={setInventory} />
                 </div>
             </div>
         </div>

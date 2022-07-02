@@ -18,7 +18,7 @@ const cartSlice = createSlice({
         reduceQuantity: (cart, action) => {
             const product = cart.find(pd => pd.id === action.payload.id);
             if (product.quantity === 1) {
-                return cart.filter(pd => pd.id !== action.payload.id);
+                product.quantity = 1;
             } else {
                 product.quantity = product.quantity - 1;
             }

@@ -2,7 +2,7 @@ import React from 'react';
 import InventoryItem from './InventoryItem/InventoryItem';
 import './Inventory.css';
 
-const Inventory = ({ inventory, isLoading }) => {
+const Inventory = ({ inventory, isLoading, setInventory }) => {
 
     return (
         <div className='grid grid-cols-2 gap-3 inventory-item-container px-2'>
@@ -15,7 +15,7 @@ const Inventory = ({ inventory, isLoading }) => {
                         Loading...
                     </button>
                 ) : (
-                    inventory?.map(inventoryItem => <InventoryItem key={inventoryItem.id} inventoryItem={inventoryItem} />)
+                    inventory?.map(inventoryItem => <InventoryItem key={inventoryItem.id} inventoryItem={inventoryItem} inventory={inventory} setInventory={setInventory} />)
                 )
             }
         </div>
