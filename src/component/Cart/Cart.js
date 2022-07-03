@@ -70,7 +70,7 @@ const Cart = ({ inventory, setInventory }) => {
                                             onClick={() => {
                                                 //Three things happening here, 
                                                 //1. Identifying the product to be removed from the cart
-                                                //2. Putting the removed product back to the inventory state at the exact index position
+                                                //2. Putting the removed product back to the inventory state
                                                 //3. Finally removing the identified product from the cart store (Redux)
                                                 const removedProduct = cartItems.find(inventoryItem => inventoryItem.id === id);
                                                 const index = removedProduct.index;
