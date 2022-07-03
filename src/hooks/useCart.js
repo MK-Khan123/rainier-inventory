@@ -26,9 +26,10 @@ const useCart = () => {
 
     //Cart management related functions
 
-    const handleAddToCart = (inventoryItem, itemPrice) => {
+    const handleAddToCart = (inventoryItem, itemPrice, index) => {
         const productData = {
             ...inventoryItem,
+            index,
             price: itemPrice,
             quantity: 1
         };
@@ -46,8 +47,6 @@ const useCart = () => {
     };
 
     const handleEmptyCart = () => dispatch(emptyCart());
-
-    console.log(cartItems);
 
     return {
         handleAddToCart,

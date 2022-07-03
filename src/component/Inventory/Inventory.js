@@ -11,7 +11,8 @@ const Inventory = ({ inventory, isLoading, setInventory }) => {
         ) : (
             <div className='grid grid-cols-2 gap-3 inventory-item-container px-2'>
                 {
-                    inventory?.map(inventoryItem => (<InventoryItem
+                    inventory?.map((inventoryItem, index) => (<InventoryItem
+                        index={index}
                         key={inventoryItem.id}
                         inventoryItem={inventoryItem}
                         inventory={inventory}

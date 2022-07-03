@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 const Cart = ({ inventory, setInventory }) => {
 
     const [showModal, setShowModal] = useState(false);
-    
+
     //All the necessary functions required to use Redux
     const {
         cartItems,
@@ -27,6 +27,15 @@ const Cart = ({ inventory, setInventory }) => {
             setShowModal(false);
         }
     };
+
+    const updateInventory = (arr, index, newItem) => [
+        // part of the array before the specified index
+        ...arr.slice(0, index),
+        // inserted item
+        newItem,
+        // part of the array after the specified index
+        ...arr.slice(index)
+    ];
 
     return (
         <div className='p-2 m-2 bg-slate-100'>
@@ -61,11 +70,12 @@ const Cart = ({ inventory, setInventory }) => {
                                             onClick={() => {
                                                 //Three things happening here, 
                                                 //1. Identifying the product to be removed from the cart
-                                                //2. Putting the removed product back to the inventory state
+                                                //2. Putting the removed product back to the inventory state at the exact index position
                                                 //3. Finally removing the identified product from the cart store (Redux)
                                                 const removedProduct = cartItems.find(inventoryItem => inventoryItem.id === id);
-                                                const updatedInventory = [removedProduct, ...inventory];
-                                                setInventory(updatedInventory);
+                                                const index = removedProduct.index;
+                                                const newInventory = updateInventory(inventory, index, removedProduct);
+                                                setInventory(newInventory);
                                                 handleRemoveFromCart(id);
                                             }}
                                             className="mx-auto h-5 w-5 cursor-pointer text-red-500"

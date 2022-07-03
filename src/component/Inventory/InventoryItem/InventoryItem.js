@@ -3,7 +3,7 @@ import axios from 'axios';
 import useReduxState from '../../../hooks/useReduxState';
 import medic from '../../../images/medicine.png';
 
-const InventoryItem = ({ inventoryItem, inventory, setInventory }) => {
+const InventoryItem = ({ inventoryItem, inventory, setInventory, index }) => {
 
     const { handleAddToCart } = useReduxState();
     const { name, description, category, id } = inventoryItem; //Information of a particular product
@@ -43,7 +43,7 @@ const InventoryItem = ({ inventoryItem, inventory, setInventory }) => {
                         //Two things happening here,
                         //1. The product is added on the cart
                         //2. Once the product is added to the cart, the inventory state is being updated.
-                        handleAddToCart(inventoryItem, itemPrice);
+                        handleAddToCart(inventoryItem, itemPrice, index);
                         const remainingInventory = inventory.filter(inventoryItem => inventoryItem.id !== id);
                         setInventory(remainingInventory);
                     }}
