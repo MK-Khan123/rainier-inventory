@@ -3,7 +3,7 @@ import { MinusCircleIcon, PlusCircleIcon, XCircleIcon } from '@heroicons/react/s
 import useReduxState from '../../hooks/useReduxState';
 import Modal from '../Modal/Modal';
 
-const Cart = ({ inventory, setInventory }) => {
+const Cart = ({ productData, setProductData }) => {
 
     const [showModal, setShowModal] = useState(false);
 
@@ -72,10 +72,11 @@ const Cart = ({ inventory, setInventory }) => {
                                                 //1. Identifying the product to be removed from the cart
                                                 //2. Putting the removed product back to the inventory state
                                                 //3. Finally removing the identified product from the cart store (Redux)
-                                                const removedProduct = cartItems.find(inventoryItem => inventoryItem.id === id);
+
+                                                const removedProduct = cartItems.find(item => item.id === id);
                                                 const index = removedProduct.index;
-                                                const newInventory = updateInventory(inventory, index, removedProduct);
-                                                setInventory(newInventory);
+                                                const newInventory = updateInventory(productData, index, removedProduct);
+                                                setProductData(newInventory);
                                                 handleRemoveFromCart(id);
                                             }}
                                             className="mx-auto h-5 w-5 cursor-pointer text-red-500"
@@ -96,7 +97,8 @@ const Cart = ({ inventory, setInventory }) => {
                     onClose={handleOnClose}
                     handleEmptyCart={handleEmptyCart}
                     showModal={showModal}
-                    setShowModal={setShowModal} />
+                    setShowModal={setShowModal}
+                />
             </div>
         </div>
     );

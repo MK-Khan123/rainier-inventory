@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Cart from '../Cart/Cart';
 import Inventory from '../Inventory/Inventory';
-import axios from 'axios';
 
 const Dashboard = () => {
-    
-    const [inventory, setInventory] = useState([]); //This state carries all the product related data
-    
+
+    const [productData, setProductData] = useState([]); //This state carries all the product related data
+    const [inventoryData, setInventoryData] = useState([]); //This state carries all the inventory related data
+
     const [isLoading, setIsLoading] = useState(false); //This state is used to display Preloader while fetching the data from database
 
     useEffect(() => {
 
         setIsLoading(true);
-        const url = `https://fec-inventory-api.herokuapp.com/product-info`;
+        const productUrl = `https://fec-inventory-api.herokuapp.com/product-info`;
+        const inventoryUrl = `https://fec-inventory-api.herokuapp.com/inventory-info`;
 
         const fetchInventory = async () => {
-            const res = await axios.get(url);
-            setInventory(res.data);
+            const product = await axios.get(productUrl);
+            const inventory = await axios.get(inventoryUrl);
+            setProductData(product.data);
+            setInventoryData(inventory.data);
             setIsLoading(false);
         }
 
@@ -47,11 +51,16 @@ const Dashboard = () => {
             <div className="flex">
                 {/* To display the products on Dashboard */}
                 <div className='w-3/5'>
-                    <Inventory isLoading={isLoading} inventory={inventory} setInventory={setInventory} />
+                    <Inventory
+                        isLoading={isLoading}
+                        productData={productData}
+                        setProductData={setProductData}
+                        inventoryData={inventoryData}
+                    />
                 </div>
                 {/* To display the products added on cart */}
                 <div className='w-2/5'>
-                    <Cart inventory={inventory} setInventory={setInventory} />
+                    <Cart productData={productData} setProductData={setProductData} />
                 </div>
             </div>
         </div>
