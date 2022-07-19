@@ -3,7 +3,7 @@ import useReduxState from '../../hooks/useReduxState';
 import medic from '../../images/medicine.png';
 import './Inventory.css';
 
-const Inventory = ({ isLoading, inventoryData, productData, setProductData }) => {
+const Inventory = ({ isLoading, productData, setProductData }) => {
 
     const { handleAddToCart } = useReduxState();
 
@@ -15,7 +15,7 @@ const Inventory = ({ isLoading, inventoryData, productData, setProductData }) =>
                 {
                     productData?.map((product, index) => {
 
-                        const { name, description, category, id } = product; //Information of a particular product
+                        const { id, name, description, category, unit_price } = product; //Information of a particular product
 
                         return (
                             <div key={id} className="grid grid-cols-3 gap-2 bg-slate-100 rounded-xl mb-2 p-4">
@@ -38,10 +38,9 @@ const Inventory = ({ isLoading, inventoryData, productData, setProductData }) =>
                                         onClick={() => {
                                             //Two things happening here,
                                             //1. The product is added on the cart
-                                            //2. Once the product is added to the cart, the inventory state is being updated.
+                                            //2. Once the product is added to the cart, the inventory is being updated.
 
-                                            const item = inventoryData.find(item => item.product_id === id);
-                                            handleAddToCart(product, item.unit_price, index);
+                                            handleAddToCart(product, unit_price, index);
                                             const remainingProduct = productData.filter(pd => pd.id !== id);
                                             setProductData(remainingProduct);
                                         }}

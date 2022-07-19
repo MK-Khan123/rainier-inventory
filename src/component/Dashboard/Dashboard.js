@@ -6,7 +6,6 @@ import Inventory from '../Inventory/Inventory';
 const Dashboard = () => {
 
     const [productData, setProductData] = useState([]); //This state carries all the product related data
-    const [inventoryData, setInventoryData] = useState([]); //This state carries all the inventory related data
 
     const [isLoading, setIsLoading] = useState(false); //This state is used to display Preloader while fetching the data from database
 
@@ -19,8 +18,18 @@ const Dashboard = () => {
         const fetchInventory = async () => {
             const product = await axios.get(productUrl);
             const inventory = await axios.get(inventoryUrl);
-            setProductData(product.data);
-            setInventoryData(inventory.data);
+
+            const productData = product.data;
+            const inventoryData = inventory.data;
+
+            const combinedData = productData.map(pd => {
+                const product_inventory_data = inventoryData.find(item => item.product_id === pd.id);
+                const { qty, box_no, unit, unit_price, note } = product_inventory_data;
+                const data = { ...pd, qty, box_no, unit, unit_price, note };
+                return data;
+            });
+
+            setProductData(combinedData);
             setIsLoading(false);
         }
 
@@ -55,9 +64,9 @@ const Dashboard = () => {
                         isLoading={isLoading}
                         productData={productData}
                         setProductData={setProductData}
-                        inventoryData={inventoryData}
                     />
                 </div>
+
                 {/* To display the products added on cart */}
                 <div className='w-2/5'>
                     <Cart productData={productData} setProductData={setProductData} />

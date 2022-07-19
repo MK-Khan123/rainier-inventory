@@ -58,8 +58,7 @@ const Modal = ({ showModal, setShowModal, onClose, cartItems, cartTotal, handleE
                                     Cancel
                                 </button>
                                 <button
-                                    onClick={() => {
-                                        console.log("Confirm Clicked");
+                                    onClick={() => {                                        
                                         setShowModal(false);
                                         handleEmptyCart();
                                         setConfirmMessage(true);
